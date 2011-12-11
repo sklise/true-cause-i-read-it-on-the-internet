@@ -4,18 +4,22 @@ get '/' do
   erb :fact
 end
 
+# Use Sass with `views/style.scss` as your stylesheet
+# To use, delete `public/stylehseets/style.css`
+get '/stylesheets/style.css' do
+  scss :style
+end
+
+get '/Favicon.ico' do
+  erb :notfound
+end
+
 get '/:fact' do
   if @fact = Fact.find(:first, :conditions => ["url = :url", {:url => params[:fact]}])
   else
     @fact = Fact.create(:url => params[:fact], :content => params[:fact].split('-').join(" ").capitalize)
   end
   erb :fact
-end
-
-# Use Sass with `views/style.scss` as your stylesheet
-# To use, delete `public/stylehseets/style.css`
-get '/stylesheets/style.css' do
-  scss :style
 end
 
 #   404
