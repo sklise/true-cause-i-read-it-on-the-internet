@@ -18,14 +18,6 @@ get '/Favicon.ico' do
   erb :notfound
 end
 
-get '/what' do
-  erb :what
-end
-
-get '/who' do
-  erb :who
-end
-
 get '/:fact' do
   if @fact = Fact.find(:first, :conditions => ["url = :url", {:url => params[:fact]}])
   else
