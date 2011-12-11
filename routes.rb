@@ -18,10 +18,18 @@ get '/Favicon.ico' do
   erb :notfound
 end
 
+get '/what' do
+  erb :what
+end
+
+get '/who' do
+  erb :who
+end
+
 get '/:fact' do
   if @fact = Fact.find(:first, :conditions => ["url = :url", {:url => params[:fact]}])
   else
-    @fact = Fact.create(:url => params[:fact], :content => params[:fact].split('-').join(" ").capitalize) unless params[:fact] == "Favicon.ico"
+    @fact = Fact.create(:url => params[:fact], :content => params[:fact].split('-').join(" ").capitalize)
   end
   erb :fact
 end
