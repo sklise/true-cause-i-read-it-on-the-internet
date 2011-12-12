@@ -10,12 +10,8 @@ get '/stylesheets/style.css' do
   scss :style
 end
 
-get '/favicon.ico' do
-  erb :notfound
-end
-
-get '/Favicon.ico' do
-  erb :notfound
+get '/*.:extension' do
+  halt 404 if ["ico","php","html","htm"].include? params[:extension]
 end
 
 get '/:fact' do
