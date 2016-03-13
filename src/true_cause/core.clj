@@ -1,5 +1,5 @@
 (ns true-cause.core
-  (:use [compojure.core])
+  (:use compojure.core)
   (:require [hiccup.page :refer [html5 include-js include-css]]
             [compojure.handler :as handler]
             [ring.middleware.resource :refer [wrap-resource]]
@@ -7,24 +7,24 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [true-cause.models :as models]))
 
-
-(defn factpage [slug]
-  (let [fa (models/fact-by-slug slug)]
-    (html5
-      [:head
-        (include-css "/css/styles.css")
-        [:title (str "It's true that " (:content fa))]]
-      [:body
-        [:h1 (:content fa)]
-        [:h2 "Its really true 'cause I read it on the internet"]
-        [:p [:a {:href (:url fa)} "Permalink"]]
-        [:p [:a {:href "/"} "Tell me more true things."]]])))
+(defn page [fact]
+  (html5
+    [:head
+      (include-css "/css/styles.css")
+      [:title (str "It's true that " (:content fact))]]
+    [:body
+      [:h1 (:content fact)]
+      [:h2 "Its really true 'cause I read it on the internet"]
+      [:p [:a {:href (:url fact)} "Permalink"]]
+      [:p [:a {:href "/"} "Tell me more true things."]]]))
 
 (defroutes app-routes
   (GET "/" []
-    "Hello World")
+    (let [fa (models/rand-fact)]
+      (page fa)))
   (GET "/:f" [f]
-    (factpage f)))
+    (let [fa (models/fact-by-slug f)]
+      (page fa))))
 
 (def app
   (-> app-routes

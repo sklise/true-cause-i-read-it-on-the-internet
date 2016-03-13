@@ -4,9 +4,10 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring/ring-core "1.4.0"]
                  [compojure "1.4.0"]
-                 [korma "0.4.0"]
+                 [korma "0.4.2"]
                  [org.xerial/sqlite-jdbc "3.7.2"]
+                 [org.clojure/java.jdbc "0.3.7"]
                  [hiccup "1.0.5"]]
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler true-cause.core/app}
-  :main true-cause.core)
+  :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]]}}
+  :ring {:handler true-cause.core/app})
