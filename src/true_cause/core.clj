@@ -11,12 +11,20 @@
   (html5
     [:head
       (include-css "/css/styles.css")
-      [:title (str "It's true that " (:content fact))]]
+      [:title (str "It's true that " (:content fact))]
+      [:meta {:property "og:title"
+              :content (:content fact)}]
+      [:meta {:property "og:type"
+              :content "website"}]
+      [:meta {:property "og:site_name"
+              :content "It's True 'Cause I Read It On The Internet"}]
+      [:meta {:property "og:description"
+              :content (str "It's true that " (:content fact) " because it's on the internet")}]]
     [:body
-      [:h1 (:content fact)]
-      [:h2 "Its really true 'cause I read it on the internet"]
-      [:p [:a {:href (:url fact)} "Permalink"]]
-      [:p [:a {:href "/"} "Tell me more true things."]]]))
+      [:h1 "It's true that"]
+      [:h2 (:content fact)]
+      [:h3 "'cause I read it on the internet"]
+      [:p [:a {:href (:url fact)} "Permalink"] " " [:a {:href "/"} "Random"]]]))
 
 (defroutes app-routes
   (GET "/" []

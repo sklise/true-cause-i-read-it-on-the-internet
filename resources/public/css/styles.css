@@ -1,68 +1,24 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html, body, div, h1, h2, h3, p, em, img, strong {
+  background-color: rgb(196, 226, 235);
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
+  font-weight: 300;
   font: inherit;
+  line-height: 1;
   vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
+a { color: rgb(121, 112, 110); }
 body {
-  line-height: 1;
+  color: rgb(3, 102, 159);
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2em;
+  max-width: 40em;
 }
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
-  quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-body {
-  font-family: "Menlo","Monaco",monospace;
-  font-size: 100%;
-  margin: 2em auto;
-  width: 90%;
-}
-
-h1 {
-  font-size: 400%;
-  margin: 0 0 12px;
-}
-
-h2 {
-  font-size: 140%;
-}
-
-p {
-  margin: 0.5em 0;
-}
+h1 { font-size: 140%; }
+h2 { font-size: 400%; margin: 0.25em 0; }
+h3 { font-size: 120%; font-style: italic; }
+p { margin: 0.5em 0; }
