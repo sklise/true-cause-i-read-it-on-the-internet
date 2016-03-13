@@ -8,4 +8,5 @@
                  [org.xerial/sqlite-jdbc "3.7.2"]
                  [hiccup "1.0.5"]]
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler true-cause.core/app})
+  :ring {:handler true-cause.core/app}
+  :main true-cause.core)
