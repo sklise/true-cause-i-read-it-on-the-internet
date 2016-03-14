@@ -18,8 +18,15 @@
 (defn rand-fact []
   (first (select fact (where {:id (+ 1 (rand-int (fact-count)))}))))
 
-(defn fact-by-slug [slug]
-  (first (select (slugify fact) (where {:url slug}))))
+(defn fact-by-slug [url]
+  (first (select fact (where {:url (slugify url)}))))
+
+(defn fact-or-create [url]
+  (if-let [f (fact-by-slug url)]
+    f
+    (let [f {:url (slugify url) :content (url-to-words url)}]
+      (insert fact (values f))
+      f)))
 
 (defn url-to-words [slug]
   (string/replace slug #"[-+]|%20" " "))

@@ -31,7 +31,7 @@
     (let [fa (models/rand-fact)]
       (page fa)))
   (GET "/:f" [f]
-    (let [fa (models/fact-by-slug f)]
+    (let [fa (models/fact-or-create f)]
       (page fa))))
 
 (def app
