@@ -23,15 +23,17 @@
     [:body
       [:h1 "It's true that"]
       [:h2 (:content fact)]
-      [:h3 "'cause I read it on the internet"]
+      [:h3 "'cause it's on the internet"]
+      (if (:source fact)
+        [:p [:a {:href (:source fact) :target "_blank"} "Here's the proof"]])
       [:p [:a {:href (:url fact)} "Permalink"] " " [:a {:href "/"} "Random"]]]))
 
 (defroutes app-routes
   (GET "/" []
     (let [fa (models/rand-fact)]
       (page fa)))
-  (GET "/:f" [f]
-    (let [fa (models/fact-or-create f)]
+  (GET "/:f" {{f :f s :source} :params}
+    (let [fa (models/fact-or-create f s)]
       (page fa))))
 
 (def app

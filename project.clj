@@ -5,9 +5,13 @@
                  [ring/ring-core "1.4.0"]
                  [compojure "1.4.0"]
                  [korma "0.4.2"]
-                 [org.xerial/sqlite-jdbc "3.7.2"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
                  [org.clojure/java.jdbc "0.3.7"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [org.slf4j/slf4j-nop "1.7.2"]
+                 [clj-bonecp-url "0.1.1"]]
   :plugins [[lein-ring "0.9.7"]]
-  :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]]}}
+  :profiles
+    {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]]}
+     :uberjar {:aot :all}}
   :ring {:handler true-cause.core/app})

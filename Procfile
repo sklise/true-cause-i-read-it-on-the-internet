@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/true-cause-0.1.0-SNAPSHOT.jar clojure.main -m true-cause.core
