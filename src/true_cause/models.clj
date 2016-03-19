@@ -18,15 +18,18 @@
 (defn slugify [s]
   (string/lower-case s))
 
+; naively assume that there are as many facts as the greatest ID
 (defn fact-count []
-  (:cnt (first (select fact
-                  (aggregate (count :*) :cnt)
-                  (order :id :ASC)
-                  (group :id)))))
+  (:id (last (select fact))))
 
-
+; since we are naively assuming that there are as many facts as the greatest ID, ensure
+; that we get a fact by recursing if there is no result
 (defn rand-fact []
-  (first (select fact (where {:id (+ 1 (rand-int (fact-count)))}))))
+  (let [f (first (select fact (where {:id (+ 1 (rand-int (fact-count)))})))]
+    (if f
+      f
+      rand-fact)
+    ))
 
 (defn fact-by-slug [url]
   (first (select fact (where {:url (slugify url)}))))
