@@ -4,6 +4,11 @@
         korma.db)
   (:require [clojure.string :as string]))
 
+(def esc-sequences
+  {\< "&lt;"
+   \> "&gt;"
+   \& "&amp;"})
+
 (def datasource
   (datasource-from-url
     (or (System/getenv "DATABASE_URL")
@@ -16,7 +21,7 @@
   (entity-fields :id :url :content :source))
 
 (defn slugify [s]
-  (string/lower-case s))
+  (string/escape (string/lower-case s)) esc-sequences)
 
 ; naively assume that there are as many facts as the greatest ID
 (defn fact-count []
@@ -40,6 +45,8 @@
 (defn fact-or-create [url source]
   (if-let [f (fact-by-slug url)]
     f
-    (let [f {:url (slugify url) :content (url-to-words url) :source source}]
+    (let [f {:url (slugify url)
+             :content (url-to-words (string/escape url) esc-sequences)
+             :source (string/escape source esc-sequences)}]
       (insert fact (values f))
       f)))
