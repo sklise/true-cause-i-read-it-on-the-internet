@@ -1,1 +1,1 @@
-web: lein ring server-headless $PORT
+web: java $JVM_OPTS -cp target/true-cause.jar clojure.main -m true-cause.core

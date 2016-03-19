@@ -1,7 +1,10 @@
 (ns true-cause.core
-  (:use compojure.core)
   (:require [hiccup.page :refer [html5 include-js include-css]]
-            [compojure.handler :as handler]
+            [compojure.handler :refer [site]]
+            [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.adapter.jetty :as jetty]
+            [environ.core :refer [env]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
@@ -30,14 +33,17 @@
 
 (defroutes app-routes
   (GET "/" []
-    (let [fa (models/rand-fact)]
-      (page fa)))
+       (let [fa (models/rand-fact)]
+         (page fa)))
   (GET "/:f" {{f :f s :source} :params}
-    (let [fa (models/fact-or-create f s)]
-      (page fa))))
+       (let [fa (models/fact-or-create f s)]
+         (page fa))))
+  (ANY "*" []
+       (route/not-found "404"))
 
 (def app
-  (-> app-routes
-      (wrap-resource "public")
-      wrap-keyword-params
-      wrap-params))
+  (wrap-params (wrap-keyword-params (wrap-resource app-routes "public"))))
+
+(defn -main [& [port]]
+  (let [port (Integer. (or port (env :port) 3000))]
+    (jetty/run-jetty (site #'app)  {:port port :join? false})))
